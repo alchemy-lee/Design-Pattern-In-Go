@@ -3,7 +3,7 @@ package observer
 import "testing"
 
 func TestObserver(t *testing.T) {
-	subject := ConcreteSubject{observers: []Observer{}}
+	subject := Subject{observers: []Observer{}}
 	observerOne := ConcreteObserverOne{}
 	observerTwo := ConcreteObserverTwo{}
 

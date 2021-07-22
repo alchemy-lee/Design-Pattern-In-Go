@@ -2,27 +2,15 @@ package observer
 
 import "fmt"
 
-// Subject 被观察者接口
-type Subject interface {
-	RegisterObserver(observer Observer)
-	RemoveObserver(observer Observer)
-	NotifyObservers(message string)
-}
-
-// Observer 观察者接口
-type Observer interface {
-	Update(message string)
-}
-
-type ConcreteSubject struct {
+type Subject struct {
 	observers []Observer
 }
 
-func (s *ConcreteSubject) RegisterObserver(observer Observer) {
+func (s *Subject) RegisterObserver(observer Observer) {
 	s.observers = append(s.observers, observer)
 }
 
-func (s *ConcreteSubject) RemoveObserver(observer Observer) {
+func (s *Subject) RemoveObserver(observer Observer) {
 	for i, o := range s.observers {
 		if o == observer {
 			s.observers = append(s.observers[:i], s.observers[i+1:]...)
@@ -31,10 +19,15 @@ func (s *ConcreteSubject) RemoveObserver(observer Observer) {
 	}
 }
 
-func (s *ConcreteSubject) NotifyObservers(message string) {
+func (s *Subject) NotifyObservers(message string) {
 	for _, o := range s.observers {
 		o.Update(message)
 	}
+}
+
+// Observer 观察者接口
+type Observer interface {
+	Update(message string)
 }
 
 type ConcreteObserverOne struct {
